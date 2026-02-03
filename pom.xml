@@ -29,7 +29,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <profile.pre-recette.dir>${basedir}/src/conf/prerec</profile.pre-recette.dir>
     <maven.javadoc.skip>true</maven.javadoc.skip>
-    <module.leaflet-bienvu.version>0.0.5-SNAPSHOT</module.leaflet-bienvu.version>
+    <module.leaflet-bienvu.version>0.0.6-SNAPSHOT</module.leaflet-bienvu.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -51,6 +51,17 @@
       <groupId>fr.paris.lutece.plugins</groupId>
       <artifactId>plugin-unittree</artifactId>
       <version>2.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>fr.paris.lutece.plugins</groupId>
+      <artifactId>library-signrequest</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>fr.paris.lutece.plugins</groupId>
+      <artifactId>plugin-rest</artifactId>
+      <version>3.1.0</version>
+      <type>lutece-plugin</type>
     </dependency>
     <dependency>
       <groupId>fr.paris.lutece.plugins</groupId>
