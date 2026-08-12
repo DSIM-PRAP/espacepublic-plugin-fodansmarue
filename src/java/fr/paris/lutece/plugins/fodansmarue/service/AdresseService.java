@@ -36,8 +36,11 @@ package fr.paris.lutece.plugins.fodansmarue.service;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import fr.paris.lutece.portal.service.util.AppException;
 
 import com.google.gson.Gson;
 
@@ -70,19 +73,24 @@ public class AdresseService implements IAdresseService
         String answer = http.doGet( AppPropertiesService.getProperty( SignalementConstants.PROPERTY_URL_STORE_ADR ) + "StoreAdr/rest/AdressesPostales/R61/xy/("
                 + lat + "," + lng + ",5)" );
 
-        Map<String, ArrayList> answerMap = new Gson( ).fromJson( answer, Map.class );
+        JsonNode root;
+        try
+        {
+            root = new ObjectMapper( ).readTree( answer );
+        }
+        catch ( JsonProcessingException e )
+        {
+            throw new AppException( e.getMessage( ), e );
+        }
 
         String result = "";
-        if ( answerMap.containsKey( "Features" ) )
+        JsonNode features = root.path( "Features" );
+        if ( features.isArray( ) && features.size( ) > 0 && features.get( 0 ).has( "properties" ) )
         {
-            JSONArray jsonArr = new JSONArray( answerMap.get( "Features" ) );
-            if ( jsonArr.length( ) > 0 && jsonArr.getJSONObject( 0 ).has( "properties" ) )
+            JsonNode jsonObject = features.get( 0 ).path( "properties" );
+            if ( jsonObject.has( "Adressetypo" ) )
             {
-                JSONObject jsonObject = jsonArr.getJSONObject( 0 ).getJSONObject( "properties" );
-                if ( jsonObject.has( "Adressetypo" ) )
-                {
-                    result = jsonObject.get( "Adressetypo" ).toString( );
-                }
+                result = jsonObject.get( "Adressetypo" ).asText( );
             }
         }
         return result;

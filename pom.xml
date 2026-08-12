@@ -4,7 +4,7 @@
   <parent>
     <groupId>fr.paris.lutece.tools</groupId>
     <artifactId>lutece-global-pom</artifactId>
-    <version>5.0.2</version>
+    <version>7.0.5</version>
   </parent>
   <groupId>fr.paris.lutece.plugins</groupId>
   <artifactId>plugin-fobienvu</artifactId>
@@ -36,7 +36,7 @@
       <dependency>
         <groupId>fr.paris.lutece</groupId>
         <artifactId>lutece-core</artifactId>
-        <version>6.1.0</version>
+        <version>7.0.6</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -44,7 +44,7 @@
     <dependency>
       <groupId>fr.paris.lutece</groupId>
       <artifactId>lutece-core</artifactId>
-      <version>6.1.0</version>
+      <version>7.0.6</version>
       <type>lutece-core</type>
     </dependency>
     <dependency>
@@ -78,13 +78,13 @@
     <dependency>
       <groupId>fr.paris.lutece.plugins</groupId>
       <artifactId>plugin-asynchronousupload</artifactId>
-      <version>1.0.5</version>
+      <version>1.1.10</version>
       <type>lutece-plugin</type>
     </dependency>
 	<dependency>
 	    <groupId>org.postgresql</groupId>
 	    <artifactId>postgresql</artifactId>
-	    <version>42.2.23</version>
+	    <version>42.7.4</version>
 	</dependency>
     <dependency>
       <groupId>org.codehaus.jettison</groupId>
@@ -123,7 +123,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5</version>
+        <version>3.8.1</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
