@@ -545,6 +545,17 @@ public class XPageDansMaRue extends AbstractXPage
 
         List<Address> addressList = _signalementBoService.getAddressItem( address );
 
+        // Repeupler le modèle complet attendu par adresse.html (ce chemin « sans JS » re-rend la page) :
+        // sans equipementsList & co., le FreeMarker STRICT de core 7 jette InvalidReferenceException sur
+        // #list equipementsList -> HTTP 500 (variable nulle tolérée en v6, plus en v7). Cf. viewAddress.
+        if ( _typeEquipement != null )
+        {
+            model.put( MARK_TYPE_EQUIPEMENT_ID, _typeEquipement.getId( ) );
+            model.put( MARK_TYPE_EQUIPEMENT_LIBELLE, _typeEquipement.getLibelleEcranMobile( ) );
+        }
+        model.put( MARK_CHOICE, _choice );
+        DmrUtils.formatStringManual( _equipementList );
+        model.put( MARK_EQUIPEMENT_LIST, _equipementList );
         model.put( MARK_ADRESSE, adresse );
         model.put( MARK_PROPOSED_ADDRESSES, addressList );
         return getXPage( TEMPLATE_XPAGE_ADRESSE, request.getLocale( ), model );
