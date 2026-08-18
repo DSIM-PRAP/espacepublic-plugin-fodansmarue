@@ -273,7 +273,7 @@
             	<span>#i18n{fodansmarue.etape.formulaire.anomalie.enregistre}</span>
            	</h2>
             <div class="bloc-indication">
-            	<p class="info-step1">#i18n{fodansmarue.doublons.recap}</p>
+            	<p class="info-step1">#i18n{fodansmarue.etape.doublons.recap}</p>
             </div>
            <a href="jsp/site/Portal.jsp?page=fodansmarue&view=doublons"  class="btn modifier">#i18n{fodansmarue.modifier}</a>
           </div>
@@ -365,7 +365,7 @@ function formatBytes(bytes,decimals) {
 		<#nested>
 	</#if>
 	<script type="text/javascript">
-	$(window).scrollTop($("#monancre").offset().top);
+	$(window).scrollTop(($("#monancre").offset()||{top:0}).top);
 </script>
 </#macro>
 
