@@ -87,7 +87,18 @@ $(function () {
     	        	$(' #progress_' + fieldName).hide();
     	        }
     	    }).on('fileuploaddone', function (e, data) {
-    	    	formDisplayUploadedFiles${fieldname}( data.result, data.files, '${checkBoxPrefix}' );
+    	    	// En 7.0.6 la reponse d'upload (data.result) ne contient plus 'fileCount' (et les
+    	    	// fichiers y sont 'fileName'/'fileSize'), ce que formDisplayUploadedFiles ne sait pas
+    	    	// lire -> le nom/taille du fichier ne s'affichaient plus. On re-fetch la liste courante
+    	    	// via DoRemoveFile.jsp (qui renvoie fileCount + files.name/size, comme attendu par le
+    	    	// rendu), a l'identique du comportement du plugin coeur v7.
+    	    	var fieldName = data.formData[0].value;
+    	    	var jsonData = {"fieldname": fieldName, "asynchronousupload.handler":"${handler_name}"};
+    	    	$.getJSON('${base_url}jsp/site/plugins/asynchronousupload/DoRemoveFile.jsp', jsonData,
+    	    			function(json) {
+    	    				formDisplayUploadedFiles${fieldname}(json, null, '${checkBoxPrefix}');
+    	    			}
+    	    		);
     	    }).on('fileuploadfail', function (e, data) {
     	    	var fieldName = data.formData[0].value;
     	    	updateErrorBox( 'Une erreur est survenue lors de l\'upload du fichier', fieldName );
